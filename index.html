@@ -3,32 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ProTrack Elite | Live 2026</title>
+    <title>ProTrack Elite | Master Sync</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background: #030303; color: white; font-family: 'Inter', -apple-system, sans-serif; }
+        body { background: #030303; color: white; font-family: 'Inter', sans-serif; }
         .ios-blur { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(40px); border: 1px solid rgba(255,255,255,0.08); border-radius: 28px; }
-        .history-square { width: 10px; height: 10px; border-radius: 2px; transition: 0.3s; }
+        .history-square { width: 10px; height: 10px; border-radius: 2px; }
         .hidden { display: none; }
         input { background: rgba(255,255,255,0.05) !important; border: 1px solid rgba(255,255,255,0.1) !important; color: white !important; }
-        .admin-user-card:active { transform: scale(0.98); }
     </style>
 </head>
 <body class="p-4 md:p-8 min-h-screen">
 
     <div id="auth-screen" class="max-w-md mx-auto mt-10">
-        <div class="ios-blur p-8 shadow-2xl">
-            <h1 class="text-3xl font-black text-center mb-8 italic text-blue-500 tracking-tighter">PROTRACK ELITE</h1>
+        <div class="ios-blur p-8">
+            <h1 class="text-3xl font-black text-center mb-8 italic text-blue-500">PROTRACK ELITE</h1>
             <div class="flex bg-black/50 p-1 rounded-2xl mb-8">
                 <button onclick="toggleAuth('login')" id="tab-l" class="flex-1 py-3 rounded-xl font-bold text-blue-400 bg-white/5">Login</button>
                 <button onclick="toggleAuth('signup')" id="tab-s" class="flex-1 py-3 rounded-xl font-bold text-gray-500">Signup</button>
             </div>
             <div class="space-y-4">
-                <input id="u-name" type="text" placeholder="Username" class="w-full p-4 rounded-2xl outline-none focus:border-blue-500">
-                <input id="u-pass" type="password" placeholder="Password" class="w-full p-4 rounded-2xl outline-none focus:border-blue-500">
-                <button onclick="handleAuth()" id="auth-btn" class="w-full bg-blue-600 py-4 rounded-2xl font-black uppercase shadow-lg shadow-blue-500/20">Enter System</button>
+                <input id="u-name" type="text" placeholder="Username" class="w-full p-4 rounded-2xl outline-none">
+                <input id="u-pass" type="password" placeholder="Password" class="w-full p-4 rounded-2xl outline-none">
+                <button onclick="handleAuth()" id="auth-btn" class="w-full bg-blue-600 py-4 rounded-2xl font-black uppercase">Login</button>
             </div>
-            <p id="auth-hint" class="text-[10px] text-gray-600 mt-4 text-center">Deploy Version 2.0 | Fixed Admin Access</p>
         </div>
     </div>
 
@@ -39,7 +37,7 @@
                 <p id="streak-info" class="text-orange-500 font-bold text-sm">🔥 0 DAY STREAK</p>
             </div>
             <div class="flex gap-2">
-                <button id="admin-toggle-btn" onclick="toggleView('admin')" class="hidden ios-blur px-4 py-2 text-xs border border-blue-600 text-blue-500 font-bold uppercase">🛠 Panel</button>
+                <button id="admin-toggle-btn" onclick="toggleView('admin')" class="hidden ios-blur px-4 py-2 text-xs border border-blue-600 text-blue-500 font-bold uppercase tracking-widest">🛠 Admin Panel</button>
                 <button id="home-toggle-btn" onclick="toggleView('home')" class="hidden ios-blur px-4 py-2 text-xs font-bold text-blue-400 uppercase tracking-widest">🏠 Home</button>
                 <button onclick="openProfileModal()" class="ios-blur px-4 py-2 text-xs font-bold">👤 Profile</button>
                 <button onclick="logout()" class="ios-blur px-4 py-2 text-xs font-bold text-red-500">EXIT</button>
@@ -48,69 +46,69 @@
 
         <div id="stats-area" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div class="ios-blur p-6">
-                <p class="text-[10px] text-gray-500 font-bold mb-1 uppercase tracking-widest">Year Progress 2026</p>
+                <p class="text-[10px] text-gray-500 font-bold mb-1 uppercase tracking-widest italic">Year Progress 2026</p>
                 <div id="year-perc" class="text-4xl font-black italic mb-2 text-blue-500">0%</div>
                 <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
-                    <div id="year-bar" class="h-full bg-blue-500 transition-all duration-1000"></div>
+                    <div id="year-bar" class="h-full bg-blue-500"></div>
                 </div>
             </div>
             <div class="ios-blur p-6 col-span-2 overflow-x-auto">
-                <p class="text-[10px] text-gray-500 font-bold mb-2 uppercase tracking-widest">Lifetime History</p>
+                <p class="text-[10px] text-gray-500 font-bold mb-2 uppercase tracking-widest">Activity Grid</p>
                 <div id="history-grid" class="flex flex-wrap gap-1"></div>
             </div>
         </div>
 
-        <div id="user-area" class="space-y-6">
-            <div class="ios-blur p-6">
+        <div id="user-area">
+            <div class="ios-blur p-6 mb-20">
                 <div class="flex gap-3 mb-8">
-                    <input id="h-input" type="text" placeholder="Start new goal..." class="flex-1 p-4 rounded-2xl outline-none">
-                    <button onclick="openHabitModal('add')" class="bg-blue-600 w-16 h-16 rounded-2xl font-black text-2xl shadow-lg shadow-blue-600/20">+</button>
+                    <input id="h-input" type="text" placeholder="Add Habit/Goal..." class="flex-1 p-4 rounded-2xl outline-none">
+                    <button onclick="openHabitModal('add')" class="bg-blue-600 w-16 h-16 rounded-2xl font-black text-2xl shadow-lg">+</button>
                 </div>
                 <div id="h-list" class="space-y-4"></div>
             </div>
         </div>
 
-        <div id="admin-area" class="hidden space-y-8 pb-20">
-            <h2 class="text-2xl font-black text-blue-500 tracking-tighter uppercase italic">Monitoring Students</h2>
+        <div id="admin-area" class="hidden space-y-6 pb-20">
+            <h2 class="text-2xl font-black text-blue-500 uppercase italic">Admin: User Monitoring</h2>
             <div id="admin-user-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </div>
     </div>
 
-    <div id="habit-modal" class="hidden fixed inset-0 bg-black/95 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
-        <div class="ios-blur p-8 max-w-sm w-full border border-white/10">
-            <h2 id="modal-title" class="text-xl font-black mb-6 text-center italic">Goal Configuration</h2>
-            <input id="m-name" type="text" class="w-full p-4 rounded-2xl mb-4" placeholder="Name">
-            <div class="flex gap-2 mb-8">
-                <div class="flex-1 text-center"><p class="text-[10px] text-gray-500 mb-1">HOURS</p><input id="m-hrs" type="number" class="w-full p-4 rounded-2xl text-center"></div>
-                <div class="flex-1 text-center"><p class="text-[10px] text-gray-500 mb-1">MINS</p><input id="m-mins" type="number" class="w-full p-4 rounded-2xl text-center"></div>
-            </div>
-            <button id="modal-save-btn" class="w-full bg-blue-600 py-4 rounded-2xl font-black uppercase">Save Settings</button>
-            <button onclick="closeModal('habit-modal')" class="w-full mt-4 text-gray-500 text-xs">Cancel</button>
-        </div>
-    </div>
-
-    <div id="user-details-modal" class="hidden fixed inset-0 bg-black/98 flex items-center justify-center p-4 z-[60] overflow-y-auto">
-        <div class="ios-blur p-8 max-w-2xl w-full my-10">
-            <div class="flex justify-between items-start mb-8">
-                <h2 id="det-user-name" class="text-3xl font-black italic text-blue-500 uppercase">User Profile</h2>
-                <button onclick="closeModal('user-details-modal')" class="text-3xl text-gray-500 leading-none">&times;</button>
+    <div id="user-details-modal" class="hidden fixed inset-0 bg-black/98 flex items-center justify-center p-4 z-[60]">
+        <div class="ios-blur p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-8 border-b border-white/10 pb-4">
+                <h2 id="det-user-name" class="text-3xl font-black italic text-blue-500">USER</h2>
+                <button onclick="closeModal('user-details-modal')" class="text-3xl text-gray-500">&times;</button>
             </div>
             <div class="space-y-8">
                 <div>
-                    <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">Live Status</p>
+                    <p class="text-[10px] text-gray-500 font-bold uppercase mb-4 tracking-widest">Today's Goals & Target Time</p>
                     <div id="det-today-goals" class="space-y-3"></div>
                 </div>
                 <div>
-                    <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-3">Full Activity History</p>
+                    <p class="text-[10px] text-gray-500 font-bold uppercase mb-4 tracking-widest">Lifetime Consistency Grid</p>
                     <div id="det-history-grid" class="flex flex-wrap gap-1 bg-white/5 p-4 rounded-3xl"></div>
                 </div>
             </div>
         </div>
     </div>
 
+    <div id="habit-modal" class="hidden fixed inset-0 bg-black/95 flex items-center justify-center p-4 z-50">
+        <div class="ios-blur p-8 max-w-sm w-full">
+            <h2 id="modal-title" class="text-xl font-black mb-6 text-center italic">Goal Settings</h2>
+            <input id="m-name" type="text" class="w-full p-4 rounded-2xl mb-4" placeholder="Name">
+            <div class="flex gap-2 mb-8">
+                <div class="flex-1"><p class="text-[9px] text-center text-gray-500 mb-1">HRS</p><input id="m-hrs" type="number" class="w-full p-4 rounded-2xl text-center"></div>
+                <div class="flex-1"><p class="text-[9px] text-center text-gray-500 mb-1">MINS</p><input id="m-mins" type="number" class="w-full p-4 rounded-2xl text-center"></div>
+            </div>
+            <button id="modal-save-btn" class="w-full bg-blue-600 py-4 rounded-2xl font-black uppercase">Save Goal</button>
+            <button onclick="closeModal('habit-modal')" class="w-full mt-4 text-gray-500 text-xs uppercase">Cancel</button>
+        </div>
+    </div>
+
     <div id="profile-modal" class="hidden fixed inset-0 bg-black/95 flex items-center justify-center p-4 z-50">
         <div class="ios-blur p-8 max-w-sm w-full">
-            <h2 class="text-xl font-black mb-6 text-center">Update Identity</h2>
+            <h2 class="text-xl font-black mb-6 text-center italic">Edit Profile</h2>
             <input id="p-user" type="text" placeholder="New Username" class="w-full p-4 rounded-2xl mb-4">
             <input id="p-pass" type="password" placeholder="New Password" class="w-full p-4 rounded-2xl mb-8">
             <button onclick="updateProfile()" class="w-full bg-green-600 py-4 rounded-2xl font-black">UPDATE</button>
@@ -119,37 +117,26 @@
     </div>
 
     <script>
-        // --- GLOBAL STATE & ADMIN REPAIR ---
         const ADMIN_ID = "saquibalam0025";
-        const ADMIN_PASS = "saquibalam";
         let curUser = localStorage.getItem('activeUser') || "";
         let uData = {};
         let editingIdx = -1;
 
-        // Force initialize Admin if it's a new deployment
-        function initAdmin() {
-            let reg = JSON.parse(localStorage.getItem('registry')) || [];
+        // --- AUTH & SYNC ---
+        window.onload = () => {
             if(!localStorage.getItem(`u_${ADMIN_ID}`)) {
-                localStorage.setItem(`u_${ADMIN_ID}`, JSON.stringify({
-                    pass: ADMIN_PASS,
-                    habits: [],
-                    history: {}
-                }));
+                localStorage.setItem(`u_${ADMIN_ID}`, JSON.stringify({pass:'saquibalam', habits:[], history:{}}));
+                let reg = JSON.parse(localStorage.getItem('registry')) || [];
                 if(!reg.includes(ADMIN_ID)) reg.push(ADMIN_ID);
                 localStorage.setItem('registry', JSON.stringify(reg));
             }
-        }
-
-        window.onload = () => {
-            initAdmin(); // Always run this to ensure Admin exists on any domain
             if(curUser) launchApp();
         };
 
-        // --- AUTH LOGIC ---
         function toggleAuth(mode) {
             document.getElementById('tab-l').className = mode === 'login' ? 'flex-1 py-3 rounded-xl font-bold text-blue-400 bg-white/5' : 'flex-1 py-3 rounded-xl font-bold text-gray-500';
             document.getElementById('tab-s').className = mode === 'signup' ? 'flex-1 py-3 rounded-xl font-bold text-green-400 bg-white/5' : 'flex-1 py-3 rounded-xl font-bold text-gray-500';
-            document.getElementById('auth-btn').innerText = mode === 'login' ? 'Enter System' : 'Sign Up';
+            document.getElementById('auth-btn').innerText = mode === 'login' ? 'Login' : 'Signup';
             window.authMode = mode;
         }
         window.authMode = 'login';
@@ -157,19 +144,17 @@
         function handleAuth() {
             const u = document.getElementById('u-name').value.trim();
             const p = document.getElementById('u-pass').value.trim();
-            if(!u || !p) return alert("Fill all fields");
-
             if(window.authMode === 'signup') {
                 if(localStorage.getItem(`u_${u}`)) return alert("Taken!");
                 localStorage.setItem(`u_${u}`, JSON.stringify({pass:p, habits:[], history:{}}));
                 let reg = JSON.parse(localStorage.getItem('registry')) || [];
                 reg.push(u); localStorage.setItem('registry', JSON.stringify(reg));
-                alert("Account created!"); toggleAuth('login');
+                alert("Success!"); toggleAuth('login');
             } else {
                 const stored = JSON.parse(localStorage.getItem(`u_${u}`));
                 if(stored && stored.pass === p) {
                     curUser = u; localStorage.setItem('activeUser', u); launchApp();
-                } else alert("Access Denied");
+                } else alert("Error!");
             }
         }
 
@@ -182,7 +167,7 @@
             renderHabits(); renderGrid(); calculateStreak(); updateYear();
         }
 
-        // --- CORE FEATURES ---
+        // --- CORE FUNCTIONS ---
         function renderHabits() {
             const list = document.getElementById('h-list');
             const today = new Date().toISOString().split('T')[0];
@@ -192,7 +177,7 @@
                 const checked = status[i] ? 'checked' : '';
                 list.innerHTML += `
                     <div class="ios-blur p-6 flex items-center justify-between border border-white/5">
-                        <div><p class="font-black text-lg">${h.name}</p><p class="text-[10px] text-blue-400 font-bold uppercase">Target: ${h.time}</p></div>
+                        <div><p class="font-black text-lg">${h.name}</p><p class="text-[10px] text-blue-400 font-bold italic uppercase">Goal: ${h.time}</p></div>
                         <div class="flex items-center gap-4">
                             <button onclick="editHabit(${i})" class="text-xs text-gray-600">✏️</button>
                             <button onclick="deleteHabit(${i})" class="text-xs text-gray-600">🗑️</button>
@@ -217,11 +202,11 @@
                 const d = new Date(); d.setDate(today.getDate() - i);
                 const ds = d.toISOString().split('T')[0];
                 const active = (data.history[ds] || []).some(x => x);
-                grid.innerHTML += `<div class="history-square ${active ? 'bg-green-500' : 'bg-white/5'}"></div>`;
+                grid.innerHTML += `<div class="history-square ${active ? 'bg-green-500 shadow-[0_0_5px_green]' : 'bg-white/5'}"></div>`;
             }
         }
 
-        // --- ADMIN PANEL FUNCTIONS ---
+        // --- LIVE ADMIN PANEL ---
         function toggleView(v) {
             document.getElementById('user-area').classList.toggle('hidden', v === 'admin');
             document.getElementById('admin-area').classList.toggle('hidden', v !== 'admin');
@@ -236,33 +221,45 @@
             const list = document.getElementById('admin-user-list');
             list.innerHTML = "";
             const today = new Date().toISOString().split('T')[0];
+
             reg.forEach(u => {
+                // Fetch FRESH data for each user from local storage
                 const d = JSON.parse(localStorage.getItem(`u_${u}`));
                 const done = (d.history[today] || []).filter(x => x).length;
                 const total = d.habits.length;
                 const p = total > 0 ? Math.round((done/total)*100) : 0;
+
                 list.innerHTML += `
-                    <div onclick="showUserDetails('${u}')" class="ios-blur p-6 admin-user-card border-l-4 border-blue-600 cursor-pointer">
-                        <div class="flex justify-between items-center mb-2"><span class="font-black uppercase">${u}</span><span class="text-blue-500 font-bold">${p}%</span></div>
-                        <div class="w-full h-1 bg-white/10 rounded-full"><div class="h-full bg-blue-500" style="width:${p}%"></div></div>
+                    <div onclick="showUserDetails('${u}')" class="ios-blur p-6 border-l-4 border-blue-600 cursor-pointer hover:bg-blue-600/5 transition">
+                        <div class="flex justify-between items-center mb-2"><span class="font-black uppercase">${u}</span><span class="text-blue-500 font-bold">${p}% Done</span></div>
+                        <div class="w-full h-1.5 bg-white/5 rounded-full"><div class="h-full bg-blue-500" style="width:${p}%"></div></div>
+                        <p class="text-[8px] text-gray-600 mt-2 font-bold uppercase tracking-widest">Click to see goals & history →</p>
                     </div>`;
             });
         }
 
         function showUserDetails(user) {
+            // Fetch FRESH data for modal
             const data = JSON.parse(localStorage.getItem(`u_${user}`));
             const today = new Date().toISOString().split('T')[0];
             const status = data.history[today] || [];
+            
             document.getElementById('det-user-name').innerText = user;
             const goals = document.getElementById('det-today-goals');
             goals.innerHTML = "";
+
             data.habits.forEach((h, i) => {
-                const done = status[i];
-                goals.innerHTML += `<div class="flex justify-between p-4 bg-white/5 rounded-2xl border border-white/5">
-                    <span class="font-bold ${done ? 'text-green-400' : 'text-gray-500'}">${h.name}</span>
-                    <span class="text-[9px] font-black uppercase ${done ? 'text-green-500' : 'text-red-500'}">${done ? 'Done' : 'Pending'}</span>
-                </div>`;
+                const isDone = status[i];
+                goals.innerHTML += `
+                    <div class="flex justify-between p-4 bg-white/5 rounded-2xl border border-white/5">
+                        <span class="font-bold ${isDone ? 'text-green-400' : 'text-gray-500'}">${h.name}</span>
+                        <div class="text-right">
+                            <p class="text-[10px] font-black uppercase text-blue-400">${h.time}</p>
+                            <p class="text-[9px] font-bold ${isDone ? 'text-green-500' : 'text-red-500'}">${isDone ? 'COMPLETED' : 'PENDING'}</p>
+                        </div>
+                    </div>`;
             });
+
             renderGrid('det-history-grid', data);
             document.getElementById('user-details-modal').classList.remove('hidden');
         }
@@ -276,21 +273,26 @@
                 const hObj = { name: document.getElementById('m-name').value, time: `${document.getElementById('m-hrs').value || 0}h ${document.getElementById('m-mins').value || 0}m` };
                 if(editingIdx > -1) uData.habits[editingIdx] = hObj; else uData.habits.push(hObj);
                 save(); renderHabits(); closeModal('habit-modal');
+                document.getElementById('h-input').value = "";
             };
         }
         function editHabit(i) { openHabitModal('edit', i); }
-        function deleteHabit(i) { if(confirm("Delete goal?")) { uData.habits.splice(i,1); save(); renderHabits(); } }
+        function deleteHabit(i) { if(confirm("Delete?")) { uData.habits.splice(i,1); save(); renderHabits(); } }
+        
         function updateYear() {
             const d = new Date(), s = new Date(d.getFullYear(), 0, 0);
-            const p = (((Math.floor((d-s)/86400000))/365)*100).toFixed(1);
+            const diff = Math.floor((d-s)/86400000);
+            const p = ((diff/365)*100).toFixed(1);
             document.getElementById('year-perc').innerText = p + "%";
             document.getElementById('year-bar').style.width = p + "%";
         }
+
         function calculateStreak() {
             const keys = Object.keys(uData.history).sort().reverse(); let s = 0;
             for(let k of keys) { if(uData.history[k].some(x => x)) s++; else break; }
             document.getElementById('streak-info').innerText = `🔥 ${s} DAY STREAK`;
         }
+
         function updateProfile() {
             const nU = document.getElementById('p-user').value.trim(), nP = document.getElementById('p-pass').value.trim();
             if(nU !== curUser && localStorage.getItem(`u_${nU}`)) return alert("Taken");
@@ -302,6 +304,7 @@
             }
             curUser = nU; localStorage.setItem('activeUser', nU); location.reload();
         }
+
         function openProfileModal() { document.getElementById('p-user').value = curUser; document.getElementById('profile-modal').classList.remove('hidden'); }
         function save() { localStorage.setItem(`u_${curUser}`, JSON.stringify(uData)); }
         function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
